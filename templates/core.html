@@ -1,0 +1,16 @@
+{% extends "layouts/default.html" %}
+{% block title %}Common Lisp CAS demo{% endblock %}
+{% block content %}
+<div id="main" class="container">
+  <div class="row">
+    <div class="col-3 d-flex flex-row">{% block left %}{% endblock %}</div>
+    <div class="col-6 text-center">
+       <h2>{% block subtitle %}{% endblock %}</h2>
+    </div>
+    <div class="col-3 d-flex flex-row-reverse">{% block right %}{% endblock %}</div>
+  </div>
+
+  {% block subcontent %}{% endblock %}
+
+</div>
+{% endblock %}

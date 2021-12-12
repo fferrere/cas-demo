@@ -1,0 +1,40 @@
+{% extends "core.html" %}
+
+{% block left %}<a href="/">Back to Welcome page (public access)</a>{% endblock %}
+{% block subtitle %}CAS Demo - Welcome <span class="text-success">"{{ uid | upper }}"</span>{% endblock %}
+
+{% block right %}<a class="btn btn-danger" href="/logout">Logout</a>{% endblock %}
+
+{% block subcontent %}
+<div class="row">
+  <div id="show" class="col text-center">
+    <button class="btn btn-success" hx-post="/ajax/show" hx-target="#attrs-details">
+      User Attributes
+    </button>
+  </div>
+  <div id="hide" class="col text-center collapse">
+    <button class="btn btn-success" hx-get="/ajax/hide" hx-target="#attrs-details">
+      Hide User Attributes
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div id="attrs-details" class="col">
+  </div>
+</div>
+
+<script>
+  htmx.on ("#show", "click", function(evt){
+      $(this).addClass('collapse');
+      var hideButton = htmx.find("#hide");
+      $(hideButton).removeClass('collapse');
+  });
+  
+  htmx.on ("#hide", "click", function(evt){
+      $(this).addClass('collapse');
+      var showButton = htmx.find("#show");
+      $(showButton).removeClass('collapse');
+  });
+</script>
+{% endblock %}
