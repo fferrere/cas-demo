@@ -20,14 +20,19 @@
 (defparameter *template-directory* (merge-pathnames #P"templates/" *application-root*))
 
 (defconfig :common
-    `(:databases ((:maindb :sqlite3 :database-name ":memory:"))
-      :cas (:client (:server-url "https://casserver.herokuapp.com/cas") :excludes ("/" "/logout"))))
+    `(:databases ((:maindb :sqlite3 :database-name ":memory:"))))
 
 (defconfig |development|
-  '())
+    '(:cas (:cas-server-url "https://casserver.herokuapp.com/cas"
+	    :app-url "http://localhost:5000/"
+	    :app-logout-url "http://localhost:5000/"
+	    :app-excludes ("/" "/logout"))))
 
 (defconfig |production|
-  '())
+    `(:cas (:cas-server-url ,(uiop:getenv "CAS_URL")
+	    :app-url ,(uiop:getenv "APP_URL")
+	    :app-logout-url ,(uiop:getenv "APP_LOGOUT_URL")
+	    :app-excludes ,(uiop:split-string (uiop:getenv "APP_EXCLUDES")))))
 
 (defconfig |test|
   '())
@@ -43,3 +48,4 @@
 
 (defun productionp ()
   (string= (appenv) "production"))
+

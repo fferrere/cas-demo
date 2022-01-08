@@ -41,7 +41,7 @@
                       :host (lack.request:request-server-name *request*)
                       :port (lack.request:request-server-port *request*)
                       :path "/"))))
-    (cm:cas-logout (cas-client-config) *session* logout-url)))
+    (cm:logout *session* logout-url)))
 
 (defun user-attributes ()
   (multiple-value-bind (uid attrs) (cm:cas-authenticated-user *session*)

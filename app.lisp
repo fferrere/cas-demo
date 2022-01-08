@@ -36,6 +36,5 @@
        (lambda (env)
          (let ((datafly:*trace-sql* t))
            (funcall app env)))))
- (:auth-cas :config (getf (config :cas) :client)
-            :excludes (getf (config :cas) :excludes))
+ (:auth-cas :config (config :cas))
  *web*)
