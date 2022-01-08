@@ -35,13 +35,7 @@
     (render #P"private.html" (list :uid uid))))
 
 (defroute "/logout" ()
-  (let ((logout-url (quri:render-uri
-                     (quri:make-uri
-                      :scheme (lack.request:request-uri-scheme *request*)
-                      :host (lack.request:request-server-name *request*)
-                      :port (lack.request:request-server-port *request*)
-                      :path "/"))))
-    (cm:logout *session* logout-url)))
+  (cm:logout *session*))
 
 (defun user-attributes ()
   (multiple-value-bind (uid attrs) (cm:cas-authenticated-user *session*)
